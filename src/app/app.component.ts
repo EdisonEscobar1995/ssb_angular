@@ -1,10 +1,90 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
+import { take } from 'rxjs';
+import { AuthService } from './services/auth.service';
+import { MenuService } from './services/menu.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnDestroy {
   title = 'ssb_angular';
+  token = '';
+  isLogin = this.authService.isLoggedIn();
+  activeMenu = '';
+
+  constructor(
+    private readonly authService: AuthService,
+    private readonly menuService: MenuService,
+    private readonly router: Router
+  ) {
+    // let isLog = this.authService.isLoggedInObs();
+    // isLog.subscribe((loggedin) => {
+    //   this.isLogin = loggedin;
+    // });
+    debugger;
+    if (localStorage.getItem('loginEnd') && localStorage.getItem('loginEnd') === 'si') {
+      // const token = this.authService.getToken();
+      // window.location.href = `https://pre-identity.santillanaconnect.com/connect/endsession?id_token_hint=${token}`;
+      localStorage.removeItem('loginEnd');
+      // window.location.href = `https://pre-identity.santillanaconnect.com/connect/endsession`;
+      this.authService.startLogout();
+    }
+    this.authService
+      .isLoggedInSubject()
+      .subscribe((loggedin) => {
+        this.isLogin = loggedin;
+      });
+
+    this.menuService
+      .getMenuActive()
+      // .pipe(take(1))
+      .subscribe((menuActive: string) => {
+        debugger;
+        this.activeMenu = menuActive;
+        const menus = document.querySelectorAll('#sidebarMenu a.nav-link');
+        menus.forEach((el) => {
+          el.classList.remove('active');
+        })
+        const aMenu = document.querySelector(`a.${menuActive}`);
+        aMenu?.classList.add('active');
+      });
+  }
+
+  // setActiveMenu(currentMenu: string) {
+  //   const menus = document.querySelectorAll('#sidebarMenu a.nav-link');
+  //   menus.forEach((el) => {
+  //     el.classList.remove('active');
+  //   })
+  //   const aMenu = document.querySelector(`a.${currentMenu}`);
+  //   aMenu?.classList.add('active');
+  // }
+
+  isLoggedIn() {
+    return this.authService.isLoggedIn();
+  }
+
+  logout() {
+    debugger;
+    localStorage.setItem('loginEnd', 'si');
+    this.authService.startLogout();
+    // const token = this.authService.getToken();
+    // window.location.href = `https://pre-identity.santillanaconnect.com/connect/endsession??id_token_hint=${token}`;
+  }
+
+  loginStart() {
+    if (this.authService.isLoggedIn()) {
+      return true;
+    }
+
+    this.authService.startAuthentication();
+    return false;
+  }
+
+  ngOnDestroy() {
+    this.authService.isLoggedInSubject().unsubscribe();
+  }
+
 }
