@@ -1,11 +1,19 @@
 {
-  "authority": "https://pre-identity.santillanaconnect.com",
-  "client_id": "ssb_monitoring_frontend_test_pre",
-  "redirect_uri": "https://localhost:4200/login",
-  "post_logout_redirect_uri": "http://localhost:4200/logout",
-  "response_type": "code",
-  "scope": "openid email external.info apiSsb/full_access offline_access",
-  "filterProtocolClaims": true,
-  "loadUserInfo": true,
-  "apiUrl": "http://localhost:3721/identity"
+  "connect": {
+    "authority": "https://pre-identity.santillanaconnect.com",
+    "client_id": "ssb_monitoring_frontend_test_pre",
+    "redirect_uri": "https://localhost:4200/login",
+    "post_logout_redirect_uri": "http://localhost:4200/logout",
+    "response_type": "code",
+    "scope": "openid email external.info apiSsb/full_access offline_access",
+    "filterProtocolClaims": true,
+    "loadUserInfo": true,
+    "apiUrl": "http://localhost:3721/identity",
+    "infoUserEndpoint": "https://pre-identity.santillanaconnect.com/connect/userinfo"
+  },
+  "cognito": {
+    "tokenEndpoint": "https://auth-sms-backend-test.auth.us-east-1.amazoncognito.com/oauth2/token",
+    "clientId": "489tsk21scq9q608ot96jnufdk",
+    "clientSecret": "16smluongc4vth07bs2so7opbkpg06jfob8f87knps46nt6ahjv"
+  }
 }

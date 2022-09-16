@@ -1,8 +1,10 @@
 import { Component, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { take } from 'rxjs';
-import { AuthService } from './services/auth.service';
+import { AuthService } from './services/security/auth.service'
 import { MenuService } from './services/menu.service';
+import { UserConnectService } from './services/security/user-connect.service';
+import { Store } from '@ngrx/store';
+import { invokeUserAPI } from './store/security/user.action';
 
 @Component({
   selector: 'app-root',
@@ -18,24 +20,27 @@ export class AppComponent implements OnDestroy {
   constructor(
     private readonly authService: AuthService,
     private readonly menuService: MenuService,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly userConnectService: UserConnectService,
+    private readonly store: Store
   ) {
     // let isLog = this.authService.isLoggedInObs();
     // isLog.subscribe((loggedin) => {
     //   this.isLogin = loggedin;
     // });
-    debugger;
     if (localStorage.getItem('loginEnd') && localStorage.getItem('loginEnd') === 'si') {
-      // const token = this.authService.getToken();
-      // window.location.href = `https://pre-identity.santillanaconnect.com/connect/endsession?id_token_hint=${token}`;
       localStorage.removeItem('loginEnd');
-      // window.location.href = `https://pre-identity.santillanaconnect.com/connect/endsession`;
       this.authService.startLogout();
     }
     this.authService
       .isLoggedInSubject()
-      .subscribe((loggedin) => {
+      .subscribe(async (loggedin) => {
         this.isLogin = loggedin;
+        if (loggedin) {
+          // const dataUser = await this.userConnectService.getUserInfo();
+          this.store.dispatch(invokeUserAPI());
+          // console.log('dataUser == ', dataUser);
+        }
       });
 
     this.menuService

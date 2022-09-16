@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import configData from '../../../config.json';
+import configData from '../../../../config.json';
 
 import { UserManager, UserManagerSettings, User } from 'oidc-client';
 import { Observable, from, Subject } from 'rxjs';
@@ -72,17 +72,18 @@ export class AuthService {
       return this.manager.clearStaleState();
     });
   }
+
 }
 
 export function getClientSettings(): UserManagerSettings {
   return {
-    authority: configData.authority,
-    client_id: configData.client_id,
-    redirect_uri: configData.redirect_uri,
-    post_logout_redirect_uri: configData.post_logout_redirect_uri,
-    response_type: configData.response_type,
-    scope: configData.scope,
-    filterProtocolClaims: configData.filterProtocolClaims,
-    loadUserInfo: configData.loadUserInfo
+    authority: configData.connect.authority,
+    client_id: configData.connect.client_id,
+    redirect_uri: configData.connect.redirect_uri,
+    post_logout_redirect_uri: configData.connect.post_logout_redirect_uri,
+    response_type: configData.connect.response_type,
+    scope: configData.connect.scope,
+    filterProtocolClaims: configData.connect.filterProtocolClaims,
+    loadUserInfo: configData.connect.loadUserInfo
   };
 }
