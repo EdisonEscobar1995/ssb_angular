@@ -9,15 +9,14 @@ import { MenuService } from 'src/app/services/menu.service';
 export class ListCompaniesComponent implements OnInit, OnDestroy {
 
   constructor(private readonly serviceMenu: MenuService) {
-    debugger;
-    this.serviceMenu.getMenuActive().next('companies');
   }
 
   ngOnInit(): void {
+    this.serviceMenu.getMenuActive().next('companies');
   }
 
   ngOnDestroy() {
-    this.serviceMenu.getMenuActive().unsubscribe();
+    // this.serviceMenu.getMenuActive().unsubscribe();
   }
 
 }

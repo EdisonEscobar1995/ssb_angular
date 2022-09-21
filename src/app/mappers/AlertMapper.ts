@@ -1,8 +1,8 @@
-import { Alert } from "../interfaces/Alert";
+import { Alert } from "../entities/alert";
 
 export class AlertMapper {
-  public static mapperAlert(data: any): Alert {
-    let option: Alert = null;
+  public static mapperAlert(data: any): Alert | null {
+    let option: Alert | null = null;
     if (data) {
       option = {
         backend: data.backend || '',

@@ -5,6 +5,7 @@ import { UserInfo, UserRol } from 'src/app/entities/userConnect';
 import { UserInfoMapper } from 'src/app/mappers/UserInfoMapper';
 import configData from '../../../../config.json';
 import { AuthService } from './auth.service';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +26,7 @@ export class UserConnectService {
   }
 
   async getUserRoles(userKey: string) {
-    const url = `https://dev.santillanar4.com/v0.1/monitoring/userrole?userKey=${userKey}`;
+    const url = `${environment.urlBaseSantillana}/v0.1/monitoring/userrole?userKey=${userKey}`;
     const request = this.httpClient.get(url, { headers: this.getAuthorizationHeader() });
     const data: any = await lastValueFrom(request);
     const userRoles: UserRol[] = UserInfoMapper.mapperUserRoles(data);

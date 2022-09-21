@@ -12,7 +12,7 @@ import { selectUser } from 'src/app/store/security/user.selector';
 export class HomeComponent implements OnInit, OnDestroy {
   userConect: UserInfo | undefined = undefined;
   constructor(private readonly serviceMenu: MenuService, private readonly store:Store) {
-    debugger;
+    // debugger;
     this.serviceMenu.getMenuActive().next('home');
     this.store.pipe(select(selectUser)).subscribe((user) => {
       console.log('user ===== ', user);
@@ -22,6 +22,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   ngOnInit(): void {}
 
   ngOnDestroy() {
-    this.serviceMenu.getMenuActive().unsubscribe();
+    // this.serviceMenu.getMenuActive().unsubscribe();
   }
 }

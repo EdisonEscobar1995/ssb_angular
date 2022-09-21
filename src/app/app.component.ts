@@ -1,17 +1,18 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from './services/security/auth.service'
 import { MenuService } from './services/menu.service';
 import { UserConnectService } from './services/security/user-connect.service';
 import { Store } from '@ngrx/store';
 import { invokeUserAPI } from './store/security/user.action';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnDestroy {
+export class AppComponent implements OnInit, OnDestroy {
   title = 'ssb_angular';
   token = '';
   isLogin = this.authService.isLoggedIn();
@@ -35,6 +36,7 @@ export class AppComponent implements OnDestroy {
     this.authService
       .isLoggedInSubject()
       .subscribe(async (loggedin) => {
+        // debugger;
         this.isLogin = loggedin;
         if (loggedin) {
           // const dataUser = await this.userConnectService.getUserInfo();
@@ -42,7 +44,6 @@ export class AppComponent implements OnDestroy {
           // console.log('dataUser == ', dataUser);
         }
       });
-
     this.menuService
       .getMenuActive()
       // .pipe(take(1))
@@ -58,25 +59,18 @@ export class AppComponent implements OnDestroy {
       });
   }
 
-  // setActiveMenu(currentMenu: string) {
-  //   const menus = document.querySelectorAll('#sidebarMenu a.nav-link');
-  //   menus.forEach((el) => {
-  //     el.classList.remove('active');
-  //   })
-  //   const aMenu = document.querySelector(`a.${currentMenu}`);
-  //   aMenu?.classList.add('active');
-  // }
+  ngOnInit() {
+
+  }
 
   isLoggedIn() {
     return this.authService.isLoggedIn();
   }
 
   logout() {
-    debugger;
+    // debugger;
     localStorage.setItem('loginEnd', 'si');
     this.authService.startLogout();
-    // const token = this.authService.getToken();
-    // window.location.href = `https://pre-identity.santillanaconnect.com/connect/endsession??id_token_hint=${token}`;
   }
 
   loginStart() {

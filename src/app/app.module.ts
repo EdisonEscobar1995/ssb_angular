@@ -15,24 +15,38 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { userReducer } from './store/security/user.reducer';
 import { UserEffects } from './store/security/user.effects';
+import { ListAlertsComponent } from './components/alerts/list-alerts/list-alerts.component';
+import { FormAlertComponent } from './components/alerts/form-alert/form-alert.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     LoginComponent,
-    ListCompaniesComponent
+    ListCompaniesComponent,
+    ListAlertsComponent,
+    FormAlertComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     RouterModule,
     HttpClientModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
+    MatProgressSpinnerModule,
     StoreModule.forRoot({}, {}),
     EffectsModule.forRoot([]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     StoreModule.forFeature('userConnect', userReducer),
-    EffectsModule.forFeature([UserEffects])
+    EffectsModule.forFeature([UserEffects]),
+    BrowserAnimationsModule
   ],
   providers: [
     UserInfoMapper
