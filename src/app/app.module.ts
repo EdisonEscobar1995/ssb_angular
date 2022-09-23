@@ -22,6 +22,14 @@ import { MatSortModule } from '@angular/material/sort';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormFieldComponent } from './components/shared/controls/form-field/form-field.component';
+import { FormFieldErrorComponent } from './components/shared/controls/form-field-error/form-field-error.component';
+import { FormSelectComponent } from './components/shared/controls/form-select/form-select.component';
+import { FormFieldNumberComponent } from './components/shared/controls/form-field/form-field-number.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +38,11 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     LoginComponent,
     ListCompaniesComponent,
     ListAlertsComponent,
-    FormAlertComponent
+    FormAlertComponent,
+    FormFieldComponent,
+    FormFieldErrorComponent,
+    FormSelectComponent,
+    FormFieldNumberComponent
   ],
   imports: [
     BrowserModule,
@@ -41,6 +53,11 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatSortModule,
     MatPaginatorModule,
     MatProgressSpinnerModule,
+    MatIconModule,
+    MatButtonModule,
+    MatDialogModule,
+    ReactiveFormsModule,
+    FormsModule,
     StoreModule.forRoot({}, {}),
     EffectsModule.forRoot([]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),

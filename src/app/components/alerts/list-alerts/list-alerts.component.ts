@@ -6,6 +6,8 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { FormAlertComponent } from '../form-alert/form-alert.component';
 
 @Component({
   selector: 'app-list-alerts',
@@ -13,15 +15,18 @@ import { MatPaginator } from '@angular/material/paginator';
   styleUrls: ['./list-alerts.component.scss']
 })
 export class ListAlertsComponent implements OnInit, AfterViewInit {
-  displayedColumns: string[] = ['backend', 'operation', 'numberRequests', 'timestamp'];
+  displayedColumns: string[] = ['backend', 'operation', 'numberRequests', 'timestamp', 'actions'];
   alerts: Alert[] | [] = [];
   dataAlerts = new MatTableDataSource<Alert>();
   loading = true;
 
+  showAdd: boolean = false;
+
   constructor(
     private readonly serviceMenu: MenuService,
     private readonly alertService: AlertService,
-    private readonly _liveAnnouncer: LiveAnnouncer
+    private readonly _liveAnnouncer: LiveAnnouncer,
+    private readonly dialog: MatDialog,
   ) {
   }
 
@@ -48,6 +53,30 @@ export class ListAlertsComponent implements OnInit, AfterViewInit {
       this.loading = false;
       console.error('Error en getAlerts = ', error);
     }
+  }
+
+  createAlert() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.minWidth = '60%';
+    dialogConfig.data = {
+      id: 1,
+      title: 'Angular For Beginners'
+    };
+    // this.dialog.open(FormAlertComponent, dialogConfig);
+    const dialogRef = this.dialog.open(FormAlertComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(
+      data => console.log("Dialog output:", data)
+    );
+    this.showAdd = true;
+  }
+
+  async updateTable() {
+    this.showAdd = false;
+    // this.showViewEdit = false;
+    // await this.searchRates(this.search);
   }
 
   announceSortChange(sortState: Sort) {

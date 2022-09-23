@@ -1,1 +1,23 @@
-<p>form-alert works!</p>
+<h2 mat-dialog-title>Alerta</h2>
+<mat-dialog-content class="mat-typography">
+  <div *ngIf="!!form" class="container p-4">
+    <form [formGroup]="form" novalidate>
+      <div class="row mt-3">
+        <div class="col-3 col-sm-6 col-md-3 col-lg-3 col-xl-3">
+          <form-select controlName="enterpriseId" id="enterpriseId" label="Empresa*"
+            [selected]="form.get('enterpriseId')?.value" [items]="[]" [option]="{
+              text: 'name',
+              value: 'enterpriseId'
+            }">
+            <form-field-error *ngIf="getError('enterpriseId', 'required')" [error]="'Empresa es requerida'">
+            </form-field-error>
+          </form-select>
+        </div>
+      </div>
+    </form>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-raised-button (click)="close()">Cancelar</button>
+  <button mat-raised-button color="primary" (click)="save()">Guardar</button>
+</mat-dialog-actions>
