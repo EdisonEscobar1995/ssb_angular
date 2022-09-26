@@ -55,20 +55,58 @@ export class ListAlertsComponent implements OnInit, AfterViewInit {
     }
   }
 
-  createAlert() {
+  async handleSubmit(values: Alert, operationAlert: string) {
+    try {
+      const response = await this.alertService.saveAlert(values, operationAlert);
+      console.log(response);
+      if (response && response.code === "200") {
+        this.getAlerts();
+      }
+    } catch (error) {
+      console.error('Error en saveAlert = ', error);
+    }
+  };
+
+  getDialogConfig(): MatDialogConfig {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.minWidth = '60%';
+    dialogConfig.maxWidth = '80%';
+    dialogConfig.width = '40%';
+    return dialogConfig;
+  }
+
+  editAlert(element: Alert) {
+    const dialogConfig = this.getDialogConfig();
     dialogConfig.data = {
-      id: 1,
-      title: 'Angular For Beginners'
+      titleModal: 'Editar Alerta',
+      dataEdit: element
+    };
+    const dialogRef = this.dialog.open(FormAlertComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(
+      data => {
+        console.log("Dialog output:", data)
+        this.loading = true;
+        this.handleSubmit(data.values, data.operationAlert);
+      }
+    );
+  }
+
+  createAlert() {
+    const dialogConfig = this.getDialogConfig();
+    dialogConfig.data = {
+      titleModal: 'Crear Alerta'
     };
     // this.dialog.open(FormAlertComponent, dialogConfig);
     const dialogRef = this.dialog.open(FormAlertComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(
-      data => console.log("Dialog output:", data)
+      data => {
+        console.log("Dialog output:", data)
+        this.loading = true;
+        this.handleSubmit(data.values, data.operationAlert);
+      }
     );
     this.showAdd = true;
   }

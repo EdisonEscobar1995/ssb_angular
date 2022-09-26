@@ -1,1 +1,16 @@
-<p>form-field-number works!</p>
+<div class="form-group">
+  <div class="label" [id]="inputId">{{ inputLabel }}</div>
+  <input
+    [id]="inputId"
+    [name]="inputId"
+    class="form-control"
+    [formControlName]="controlName"
+    autocomplete="off"
+    type="number"
+    min="0"
+    [ngClass]="{ 'is-invalid': error }"
+    [placeholder]="placeHolder"
+    [attr.aria-labelledby]="inputId"
+  />
+  <ng-content select="form-field-error"></ng-content>
+</div>

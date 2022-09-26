@@ -1,9 +1,13 @@
-<h2 mat-dialog-title>Alerta</h2>
+<h2 mat-dialog-title>{{ titleModal }}</h2>
 <mat-dialog-content class="mat-typography">
   <div *ngIf="!!form" class="container p-4">
+    <div *ngIf="!!showAlertError" class="alert alert-error-msm" [ngClass]="classAlert" role="alert">
+      {{ mensajeError }}
+      <button type="button" class="btn-close" (click)="closeAlert()"></button>
+    </div>
     <form [formGroup]="form" novalidate>
       <div class="row mt-3">
-        <div class="col-3 col-sm-6 col-md-3 col-lg-3 col-xl-3">
+        <!--<div class="col-3 col-sm-6 col-md-3 col-lg-3 col-xl-3">
           <form-select controlName="enterpriseId" id="enterpriseId" label="Empresa*"
             [selected]="form.get('enterpriseId')?.value" [items]="[]" [option]="{
               text: 'name',
@@ -12,6 +16,51 @@
             <form-field-error *ngIf="getError('enterpriseId', 'required')" [error]="'Empresa es requerida'">
             </form-field-error>
           </form-select>
+        </div>-->
+        <div class="mb-3 row">
+          <label for="operation" class="col-sm-4 col-form-label">Operation</label>
+          <div class="col-sm-8">
+            <div>
+              <select class="form-control form-select" formControlName="operation" name="operation" required
+                [ngClass]="{ 'is-invalid': isInvalid('operation') }" id="operation">
+                <option value="" disabled>Seleccionar</option>
+                <option *ngFor="let item of operationOptions" [id]="item.id" [value]="item.id"
+                  [selected]="isSelected(item, 'operation')">
+                  {{ item.name }}
+                </option>
+              </select>
+            </div>
+            <form-field-error *ngIf="getError('operation', 'required')" [error]="'Operación es requerida'">
+            </form-field-error>
+          </div>
+        </div>
+        <div class="mb-3 row">
+          <label for="backend" class="col-sm-4 col-form-label">Backend</label>
+          <div class="col-sm-8">
+            <div>
+              <select class="form-control form-select" formControlName="backend" name="backend" required
+                [ngClass]="{ 'is-invalid': isInvalid('backend') }" id="backend">
+                <option value="" disabled>Seleccionar</option>
+                <option *ngFor="let item of optionsBackend" [id]="item.id" [value]="item.id"
+                  [selected]="isSelected(item, 'backend')">
+                  {{ item.name }}
+                </option>
+              </select>
+            </div>
+            <form-field-error *ngIf="getError('backend', 'required')" [error]="'Backend es requerido'">
+            </form-field-error>
+          </div>
+        </div>
+        <div class="mb-3 row">
+          <label for="numberRequests" class="col-sm-4 col-form-label">Number Requests</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" id="numberRequests" required formControlName="numberRequests"
+              [ngClass]="{ 'is-invalid': isInvalid('numberRequests') }" />
+            <form-field-error *ngIf="getError('numberRequests', 'required')" [error]="'Número requests es requerida'">
+            </form-field-error>
+            <form-field-error *ngIf="form.get('numberRequests')?.hasError('pattern')" [error]="'Debe ingresar solo números'">
+            </form-field-error>
+          </div>
         </div>
       </div>
     </form>

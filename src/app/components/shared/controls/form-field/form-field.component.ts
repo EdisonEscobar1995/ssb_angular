@@ -1,15 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, SkipSelf } from '@angular/core';
+import { ControlContainer } from '@angular/forms';
+
+export const factoryFormField = (container: ControlContainer) => container;
 
 @Component({
-  selector: 'app-form-field',
+  selector: 'form-field',
+  viewProviders: [
+    {
+      provide: ControlContainer,
+      useFactory: factoryFormField,
+      deps: [[new SkipSelf(), ControlContainer]],
+    },
+  ],
   templateUrl: './form-field.component.html',
-  styleUrls: ['./form-field.component.scss']
 })
-export class FormFieldComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+export class FormFieldComponent {
+  @Input() controlName!: string;
+  @Input() error?: boolean = false;
+  @Input('id') inputId: string = '';
+  @Input() placeHolder: string = '';
+  @Input('label') inputLabel: string = '';
+  @Input('type') inputType: 'password' | 'text' | 'email' | 'number' = 'text';
 }

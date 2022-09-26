@@ -32,4 +32,11 @@ export class AlertService {
     return alerts;
   }
 
+  async saveAlert(data: Alert, operationAlert: string) {
+    const url = `${environment.urlBaseSantillana}/v0.1/agent/${operationAlert}`;
+    const request = this.httpClient.post(url, data, { headers: this.getAuthorizationHeader() });
+    const dataResponse: any = await lastValueFrom(request);
+    return dataResponse;
+  }
+
 }

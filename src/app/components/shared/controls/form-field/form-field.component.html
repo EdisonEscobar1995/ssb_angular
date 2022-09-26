@@ -1,1 +1,13 @@
-<p>form-field works!</p>
+<div class="form-group">
+  <label [for]="inputId"> {{ inputLabel }}</label>
+  <input
+    class="form-control"
+    [formControlName]="controlName"
+    autocomplete="off"
+    [type]="inputType"
+    [ngClass]="{ 'is-invalid': error }"
+    [id]="inputId"
+    [placeholder]="placeHolder"
+  />
+  <ng-content select="form-field-error"></ng-content>
+</div>
