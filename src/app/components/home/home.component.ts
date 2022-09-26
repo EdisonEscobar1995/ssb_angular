@@ -12,7 +12,6 @@ import { selectUser } from 'src/app/store/security/user.selector';
 export class HomeComponent implements OnInit, OnDestroy {
   userConect: UserInfo | undefined = undefined;
   constructor(private readonly serviceMenu: MenuService, private readonly store:Store) {
-    // debugger;
     this.serviceMenu.getMenuActive().next('home');
     this.store.pipe(select(selectUser)).subscribe((user) => {
       console.log('user ===== ', user);

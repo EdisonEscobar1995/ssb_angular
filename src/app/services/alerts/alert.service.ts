@@ -28,7 +28,6 @@ export class AlertService {
     const request = this.httpClient.get(url, { headers: this.getAuthorizationHeader() });
     const data: any = await lastValueFrom(request);
     const alerts: Alert[] = AlertMapper.mapperAlerts(data);
-    debugger;
     return alerts;
   }
 

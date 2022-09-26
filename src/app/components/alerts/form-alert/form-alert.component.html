@@ -62,6 +62,15 @@
             </form-field-error>
           </div>
         </div>
+        <div class="mb-3 row" *ngIf="editData?.timestamp">
+          <label for="timestamp" class="col-sm-4 col-form-label">Timestamp</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" id="timestamp" formControlName="timestamp"
+              [ngClass]="{ 'is-invalid': isInvalid('timestamp') }" />
+            <form-field-error *ngIf="getError('timestamp', 'required')" [error]="'Timestamp es requerida'">
+            </form-field-error>
+          </div>
+        </div>
       </div>
     </form>
   </div>

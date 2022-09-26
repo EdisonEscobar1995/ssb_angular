@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Alert } from 'src/app/entities/alert';
 import { IOptionSelect } from 'src/app/entities/common';
 
 @Component({
@@ -14,6 +15,7 @@ export class FormAlertComponent implements OnInit {
   mensajeError='';
   showAlertError = false;
   titleModal = '';
+  editData: Alert | null = null;
 
   operationOptions: IOptionSelect[] = [{
     id: "W",
@@ -59,6 +61,7 @@ export class FormAlertComponent implements OnInit {
   ) {
     console.log('data === ', data);
     this.titleModal = data.titleModal;
+    this.editData = data.dataEdit || null;
   }
 
   ngOnInit(): void {
@@ -71,7 +74,13 @@ export class FormAlertComponent implements OnInit {
       operation: ['', [Validators.required]],
       backend: ['', [Validators.required]],
       numberRequests: ['', [Validators.required, Validators.pattern("^[0-9]*$")]],
+      timestamp: [''],
     });
+    this.form.controls['operation'].setValue(this.editData?.operation || '');
+    this.form.controls['backend'].setValue(this.editData?.backend || '');
+    this.form.controls['numberRequests'].setValue(this.editData?.numberRequests || '');
+    this.form.controls['timestamp'].setValue(this.editData?.timestamp || '');
+    this.form.controls['timestamp'].disable();
   }
 
   getError(field: string, aliasError: string) {
@@ -115,7 +124,6 @@ export class FormAlertComponent implements OnInit {
   };
 
   save() {
-    debugger;
     this.classAlert = '';
     this.mensajeError = '';
     this.showAlertError = false;
@@ -130,8 +138,11 @@ export class FormAlertComponent implements OnInit {
       }, 4000);
     } else {
       this.showAlertError = false;
+      const objValues = this.form.value;
+      delete objValues.timestamp;
       this.dialogRef.close({
-        values: this.form.value,
+        values: objValues,
+        save: true,
         operationAlert: this.getValueOperationAlert(this.form.get('operation')?.value)
       });
     }
@@ -143,7 +154,10 @@ export class FormAlertComponent implements OnInit {
 
   close() {
     this.showAlertError = false;
-    this.dialogRef.close();
+    this.dialogRef.close({
+      values: this.form.value,
+      save: false
+    });
   }
 
 }

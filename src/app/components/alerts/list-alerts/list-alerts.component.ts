@@ -87,8 +87,10 @@ export class ListAlertsComponent implements OnInit, AfterViewInit {
     dialogRef.afterClosed().subscribe(
       data => {
         console.log("Dialog output:", data)
-        this.loading = true;
-        this.handleSubmit(data.values, data.operationAlert);
+        if (data.save) {
+          // this.loading = true;
+          // this.handleSubmit(data.values, data.operationAlert);
+        }
       }
     );
   }
@@ -104,8 +106,10 @@ export class ListAlertsComponent implements OnInit, AfterViewInit {
     dialogRef.afterClosed().subscribe(
       data => {
         console.log("Dialog output:", data)
-        this.loading = true;
-        this.handleSubmit(data.values, data.operationAlert);
+        if (data.save) {
+          this.loading = true;
+          this.handleSubmit(data.values, data.operationAlert);
+        }
       }
     );
     this.showAdd = true;

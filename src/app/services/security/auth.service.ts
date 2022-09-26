@@ -15,7 +15,6 @@ export class AuthService {
 
   constructor() {
     this.manager.getUser().then(user => {
-      // debugger;
       this.user = user;
       this.isLoggedInSubject().next(this.isLoggedIn());
     });
@@ -51,12 +50,10 @@ export class AuthService {
   }
 
   startAuthentication(): Promise<void> {
-    // debugger;
     return this.manager.signinRedirect();
   }
 
   completeAuthentication(): Promise<void> {
-    // debugger;
     return this.manager.signinRedirectCallback().then(user => {
       this.user = user;
       this.isLoggedInSubject().next(this.isLoggedIn());

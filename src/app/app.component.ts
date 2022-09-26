@@ -36,7 +36,6 @@ export class AppComponent implements OnInit, OnDestroy {
     this.authService
       .isLoggedInSubject()
       .subscribe(async (loggedin) => {
-        // debugger;
         this.isLogin = loggedin;
         if (loggedin) {
           // const dataUser = await this.userConnectService.getUserInfo();
@@ -48,7 +47,6 @@ export class AppComponent implements OnInit, OnDestroy {
       .getMenuActive()
       // .pipe(take(1))
       .subscribe((menuActive: string) => {
-        debugger;
         this.activeMenu = menuActive;
         const menus = document.querySelectorAll('#sidebarMenu a.nav-link');
         menus.forEach((el) => {
@@ -68,7 +66,6 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   logout() {
-    // debugger;
     localStorage.setItem('loginEnd', 'si');
     this.authService.startLogout();
   }
