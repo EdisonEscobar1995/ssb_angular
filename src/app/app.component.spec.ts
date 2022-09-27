@@ -1,12 +1,16 @@
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { StoreModule } from '@ngrx/store';
 import { AppComponent } from './app.component';
+import { userReducer } from './store/security/user.reducer';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule
+        RouterTestingModule,
+        StoreModule.forRoot({}, {}),
+        StoreModule.forFeature('userConnect', userReducer),
       ],
       declarations: [
         AppComponent
@@ -23,6 +27,7 @@ describe('AppComponent', () => {
   it(`should have as title 'ssb_angular'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
+    debugger;
     expect(app.title).toEqual('ssb_angular');
   });
 

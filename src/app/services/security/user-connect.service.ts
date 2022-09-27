@@ -14,8 +14,7 @@ export class UserConnectService {
 
   constructor(
     private readonly httpClient: HttpClient,
-    private readonly authService: AuthService,
-    private readonly userInfoMapper: UserInfoMapper
+    private readonly authService: AuthService
   ) { }
 
   getAuthorizationHeader(): HttpHeaders {
@@ -36,11 +35,12 @@ export class UserConnectService {
   async getUserInfo() {
     const request = this.httpClient.get(configData.connect.infoUserEndpoint, { headers: this.getAuthorizationHeader() });
     const data: any = await lastValueFrom(request);
+    debugger;
     const userInfo: UserInfo | null = UserInfoMapper.mapperInfo(data);
-    if (userInfo) {
+    /* if (userInfo) {
       const dataRoles = await this.getUserRoles(userInfo.userName);
       userInfo.roles = dataRoles || [];
-    }
+    } */
     return userInfo;
   };
 

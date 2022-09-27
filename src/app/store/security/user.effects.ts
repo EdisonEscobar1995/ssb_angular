@@ -16,12 +16,15 @@ export class UserEffects {
   getUserInfo = createEffect(() =>
     this.actions.pipe(
       ofType(invokeUserAPI),
-      switchMap(() => {
-        return this.userConnectService.getUserInfo().then((data: any) => {
-          return userFetchAPISuccess({
-            userInfo: data
-          })
-        });
+      switchMap(async () => {
+        const data: any = await this.userConnectService.getUserInfo();
+        if (data) {
+          const roles = await this.userConnectService.getUserRoles(data.userName);
+          data.roles = roles || [];
+        }
+        return userFetchAPISuccess({
+          userInfo: data
+        })
       })
     )
   );

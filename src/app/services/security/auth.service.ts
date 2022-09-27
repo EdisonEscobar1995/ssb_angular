@@ -16,6 +16,7 @@ export class AuthService {
   constructor() {
     this.manager.getUser().then(user => {
       this.user = user;
+      debugger;
       this.isLoggedInSubject().next(this.isLoggedIn());
     });
   }
@@ -25,6 +26,7 @@ export class AuthService {
   }
 
   isLoggedIn(): boolean {
+    debugger;
     return this.user != null && !this.user.expired;
   }
 

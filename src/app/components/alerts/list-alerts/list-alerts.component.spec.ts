@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
 
 import { ListAlertsComponent } from './list-alerts.component';
 
@@ -8,6 +9,9 @@ describe('ListAlertsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [
+        FormsModule
+      ],
       declarations: [ ListAlertsComponent ]
     })
     .compileComponents();

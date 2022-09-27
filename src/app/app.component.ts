@@ -1,11 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { AuthService } from './services/security/auth.service'
 import { MenuService } from './services/menu.service';
-import { UserConnectService } from './services/security/user-connect.service';
 import { Store } from '@ngrx/store';
 import { invokeUserAPI } from './store/security/user.action';
-import { take } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -21,8 +18,6 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(
     private readonly authService: AuthService,
     private readonly menuService: MenuService,
-    private readonly router: Router,
-    private readonly userConnectService: UserConnectService,
     private readonly store: Store
   ) {
     // let isLog = this.authService.isLoggedInObs();
