@@ -20,10 +20,6 @@ export class AppComponent implements OnInit, OnDestroy {
     private readonly menuService: MenuService,
     private readonly store: Store
   ) {
-    // let isLog = this.authService.isLoggedInObs();
-    // isLog.subscribe((loggedin) => {
-    //   this.isLogin = loggedin;
-    // });
     if (localStorage.getItem('loginEnd') && localStorage.getItem('loginEnd') === 'si') {
       localStorage.removeItem('loginEnd');
       this.authService.startLogout();
@@ -33,14 +29,11 @@ export class AppComponent implements OnInit, OnDestroy {
       .subscribe(async (loggedin) => {
         this.isLogin = loggedin;
         if (loggedin) {
-          // const dataUser = await this.userConnectService.getUserInfo();
           this.store.dispatch(invokeUserAPI());
-          // console.log('dataUser == ', dataUser);
         }
       });
     this.menuService
       .getMenuActive()
-      // .pipe(take(1))
       .subscribe((menuActive: string) => {
         this.activeMenu = menuActive;
         const menus = document.querySelectorAll('#sidebarMenu a.nav-link');

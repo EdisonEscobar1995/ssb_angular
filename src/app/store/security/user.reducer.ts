@@ -3,7 +3,7 @@ import { UserInfo } from "src/app/entities/userConnect";
 import { userFetchAPISuccess } from "./user.action";
 
 export const initialState: UserInfo = {
-  userName: 'Prueba usuario',
+  userName: '',
   email: '',
   emailVerified: false,
   sub: ''

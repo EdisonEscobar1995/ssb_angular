@@ -115,17 +115,7 @@ export class ListAlertsComponent implements OnInit, AfterViewInit {
     this.showAdd = true;
   }
 
-  async updateTable() {
-    this.showAdd = false;
-    // this.showViewEdit = false;
-    // await this.searchRates(this.search);
-  }
-
   announceSortChange(sortState: Sort) {
-    // This example uses English messages. If your application supports
-    // multiple language, you would internationalize these strings.
-    // Furthermore, you can customize the message to add additional
-    // details about the values being sorted.
     if (sortState.direction) {
       this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
     } else {
