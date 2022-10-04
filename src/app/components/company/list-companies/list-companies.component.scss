@@ -1,0 +1,17 @@
+@import '../../../../assets/sass/common';
+
+.companies-list-block {
+  display: block;
+}
+
+.companies-list-none {
+  display: none;
+}
+
+td.mat-column-id {
+  width: 25%;
+}
+
+td.mat-column-actions {
+  width: 10%;
+}

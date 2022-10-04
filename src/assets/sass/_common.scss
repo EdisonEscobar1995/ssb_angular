@@ -3,3 +3,29 @@
   color: #1890ff;
   padding: 10px 0 25px 0;
 }
+
+.loading-spinner {
+  width: 100% !important;
+  height: 88vh !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+:host ::ng-deep .loading-spinner.mat-progress-spinner svg {
+  top: initial;
+  left: initial;
+}
+
+table {
+  width: 100%;
+}
+
+.button-action {
+  width: 35px;
+  height: 35px;
+  margin-right: 5px;
+  .material-icons {
+    font-size: 20px;
+  }
+}

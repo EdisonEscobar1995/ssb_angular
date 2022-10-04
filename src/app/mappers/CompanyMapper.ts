@@ -1,8 +1,8 @@
-import { Company } from "../interfaces/Company";
+import { Company } from "../entities/company";
 
 export class CompanyMapper {
-  public static mapperCompany(data: any): Company {
-    let option: Company = null;
+  public static mapperCompany(data: any): Company | null {
+    let option: Company | null = null;
     if (data) {
       option = {
         id: data.refId,

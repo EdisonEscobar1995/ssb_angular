@@ -5,25 +5,8 @@
   justify-content: space-between;
 }
 
-table {
-  width: 100%;
-}
-
 th.mat-sort-header-sorted {
   color: black;
-}
-
-.loading-spinner {
-  width: 100% !important;
-  height: 88vh !important;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-:host ::ng-deep .loading-spinner.mat-progress-spinner svg {
-  top: initial;
-  left: initial;
 }
 
 .alerts-list-block {
@@ -32,13 +15,4 @@ th.mat-sort-header-sorted {
 
 .alerts-list-none {
   display: none;
-}
-
-.button-action {
-  width: 35px;
-  height: 35px;
-  margin-right: 5px;
-  .material-icons {
-    font-size: 20px;
-  }
 }

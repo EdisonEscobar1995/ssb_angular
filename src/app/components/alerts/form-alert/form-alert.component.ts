@@ -18,8 +18,11 @@ export class FormAlertComponent implements OnInit {
   editData: Alert | null = null;
 
   operationOptions: IOptionSelect[] = [{
-    id: "W",
-    name: "Warning"
+    id: "WC",
+    name: "Warning cutoff"
+  }, {
+    id: "WE",
+    name: "Warning error"
   }, {
     id: "C",
     name: "Cutoff"
@@ -110,7 +113,8 @@ export class FormAlertComponent implements OnInit {
   getValueOperationAlert(operation: string) {
     let operationAlert = "";
     switch (operation) {
-      case "W":
+      case "WE":
+      case "WC":
         operationAlert = "warning";
         break;
       case "C":

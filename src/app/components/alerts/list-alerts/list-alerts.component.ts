@@ -17,7 +17,7 @@ import { FormAlertComponent } from '../form-alert/form-alert.component';
 export class ListAlertsComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['backend', 'operation', 'numberRequests', 'timestamp', 'actions'];
   alerts: Alert[] | [] = [];
-  dataAlerts = new MatTableDataSource<Alert>();
+  dataAlerts: any;
   loading = true;
 
   showAdd: boolean = false;
@@ -85,7 +85,7 @@ export class ListAlertsComponent implements OnInit, AfterViewInit {
     const dialogRef = this.dialog.open(FormAlertComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(
-      data => {
+      (data: any) => {
         console.log("Dialog output:", data)
         if (data.save) {
           // this.loading = true;
@@ -104,7 +104,7 @@ export class ListAlertsComponent implements OnInit, AfterViewInit {
     const dialogRef = this.dialog.open(FormAlertComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(
-      data => {
+      (data: any) => {
         console.log("Dialog output:", data)
         if (data.save) {
           this.loading = true;

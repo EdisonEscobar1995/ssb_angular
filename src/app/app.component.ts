@@ -1,8 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AuthService } from './services/security/auth.service'
 import { MenuService } from './services/menu.service';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { invokeUserAPI } from './store/security/user.action';
+import { selectUser } from './store/security/user.selector';
+import { UserInfo } from './entities/userConnect';
+import { IEmptyObject } from './entities/common';
+import { getRol } from './utils/common';
 
 @Component({
   selector: 'app-root',
@@ -14,6 +18,8 @@ export class AppComponent implements OnInit, OnDestroy {
   token = '';
   isLogin = this.authService.isLoggedIn();
   activeMenu = '';
+  userConect: UserInfo | IEmptyObject = {};
+  accessMenu = false;
 
   constructor(
     private readonly authService: AuthService,
@@ -43,6 +49,11 @@ export class AppComponent implements OnInit, OnDestroy {
         const aMenu = document.querySelector(`a.${menuActive}`);
         aMenu?.classList.add('active');
       });
+    this.store.pipe(select(selectUser)).subscribe((user) => {
+      console.log('user ===== ', user);
+      this.userConect = user;
+      this.accessMenu = getRol(user);
+    });
   }
 
   ngOnInit() {
