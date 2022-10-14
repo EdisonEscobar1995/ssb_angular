@@ -7,6 +7,8 @@ import { selectUser } from './store/security/user.selector';
 import { UserInfo } from './entities/userConnect';
 import { IEmptyObject } from './entities/common';
 import { getRol } from './utils/common';
+import { TokenCognitoService } from './services/security/token-cognito.service';
+import { ROL_EDITOR, ROL_VISUALIZER } from './utils/constants';
 
 @Component({
   selector: 'app-root',
@@ -19,11 +21,13 @@ export class AppComponent implements OnInit, OnDestroy {
   isLogin = this.authService.isLoggedIn();
   activeMenu = '';
   userConect: UserInfo | IEmptyObject = {};
-  accessMenu = false;
+  accessMenuVisualizer = false;
+  accessMenuEditor = false;
 
   constructor(
     private readonly authService: AuthService,
     private readonly menuService: MenuService,
+    private readonly tokenCognitoService: TokenCognitoService,
     private readonly store: Store
   ) {
     if (localStorage.getItem('loginEnd') && localStorage.getItem('loginEnd') === 'si') {
@@ -36,6 +40,7 @@ export class AppComponent implements OnInit, OnDestroy {
         this.isLogin = loggedin;
         if (loggedin) {
           this.store.dispatch(invokeUserAPI());
+          this.getFirstTokenCognito();
         }
       });
     this.menuService
@@ -52,12 +57,24 @@ export class AppComponent implements OnInit, OnDestroy {
     this.store.pipe(select(selectUser)).subscribe((user) => {
       console.log('user ===== ', user);
       this.userConect = user;
-      this.accessMenu = getRol(user);
+      this.accessMenuVisualizer = getRol(user, ROL_VISUALIZER);
+      this.accessMenuEditor = getRol(user, ROL_EDITOR);
     });
   }
 
   ngOnInit() {
 
+  }
+
+  async getFirstTokenCognito() {
+    localStorage.removeItem('token_cognito');
+    try {
+      const tokenCognito = await this.tokenCognitoService.getTokenCognito();
+      localStorage.setItem('token_cognito', tokenCognito?.access_token || '');
+    } catch (error) {
+      console.error('Error en getFirstTokenCognito = ', error);
+      localStorage.removeItem('token_cognito');
+    }
   }
 
   isLoggedIn() {

@@ -1,0 +1,46 @@
+<section>
+  <section class="section-header">
+    <div class="title">Cognito</div>
+  </section>
+  <form [formGroup]="form" novalidate>
+    <div class="row mt-3">
+      <div class="mb-3 row">
+        <label for="scope" class="col-sm-2 col-form-label">Scope cognito</label>
+        <div class="col-sm-4">
+          <input type="text" class="form-control" id="scope" required formControlName="scope"
+            [ngClass]="{ 'is-invalid': isInvalid('scope') }" />
+          <form-field-error *ngIf="getError('scope', 'required')" [error]="'Scope cognito requerido'">
+          </form-field-error>
+        </div>
+        <div class="col-sm-3">
+          <button type="button" mat-flat-button color="primary" (click)="save()">Consultar</button>
+        </div>
+      </div>
+    </div>
+  </form>
+  <section class="result-cognito" [ngClass]="(dataSource || []).length <= 0 ? 'list-none' : 'list-block'">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+      <!-- Scope Column -->
+      <ng-container matColumnDef="scope">
+        <th mat-header-cell *matHeaderCellDef>Scope</th>
+        <td mat-cell *matCellDef="let element"> {{element.scope}} </td>
+      </ng-container>
+
+      <!-- Mensaje Column -->
+      <ng-container matColumnDef="message">
+        <th mat-header-cell *matHeaderCellDef>Mensaje</th>
+        <td mat-cell *matCellDef="let element"> {{element.message}} </td>
+      </ng-container>
+
+      <!-- Respuesta completa Column -->
+      <ng-container matColumnDef="responseComplete">
+        <th mat-header-cell *matHeaderCellDef>Respuesta completa</th>
+        <td mat-cell *matCellDef="let element"> {{element.responseComplete}} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </section>
+</section>

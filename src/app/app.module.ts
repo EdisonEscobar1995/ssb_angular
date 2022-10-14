@@ -25,11 +25,14 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FormFieldComponent } from './components/shared/controls/form-field/form-field.component';
 import { FormFieldErrorComponent } from './components/shared/controls/form-field-error/form-field-error.component';
 import { FormSelectComponent } from './components/shared/controls/form-select/form-select.component';
 import { FormFieldNumberComponent } from './components/shared/controls/form-field/form-field-number.component';
+import { CognitoComponent } from './components/cognito/cognito/cognito.component';
+import { FormCompanyComponent } from './components/company/form-company/form-company.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +45,9 @@ import { FormFieldNumberComponent } from './components/shared/controls/form-fiel
     FormFieldComponent,
     FormFieldErrorComponent,
     FormSelectComponent,
-    FormFieldNumberComponent
+    FormFieldNumberComponent,
+    CognitoComponent,
+    FormCompanyComponent
   ],
   imports: [
     BrowserModule,
@@ -56,6 +61,7 @@ import { FormFieldNumberComponent } from './components/shared/controls/form-fiel
     MatIconModule,
     MatButtonModule,
     MatDialogModule,
+    MatAutocompleteModule,
     ReactiveFormsModule,
     FormsModule,
     StoreModule.forRoot({}, {}),

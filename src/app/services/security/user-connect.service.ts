@@ -35,7 +35,7 @@ export class UserConnectService {
   async getUserInfo() {
     const request = this.httpClient.get(configData.connect.infoUserEndpoint, { headers: this.getAuthorizationHeader() });
     const data: any = await lastValueFrom(request);
-    debugger;
+    // debugger;
     const userInfo: UserInfo | null = UserInfoMapper.mapperInfo(data);
     /* if (userInfo) {
       const dataRoles = await this.getUserRoles(userInfo.userName);

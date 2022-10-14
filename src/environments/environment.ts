@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  urlBaseSantillana: 'https://dev.santillanar4.com'
+  urlBaseSantillana: 'https://dev.santillanar4.com',
+  urlBaseCognito: 'https://tqjhkw4234.execute-api.us-east-1.amazonaws.com/test'
 };
 
 /*

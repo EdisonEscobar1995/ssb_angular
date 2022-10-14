@@ -8,8 +8,27 @@
       </button>
     </div>
   </section>
-  <section class="companies-list" [ngClass]="(dataCompanies || []).length <= 0 ? 'companies-list-none' : 'companies-list-block'">
-  <!-- <section class="companies-list" *ngIf="(dataCompanies || []).length > 0"> -->
+  <section class="companies-list"
+    [ngClass]="(dataCompanies || []).length <= 0 ? 'companies-list-none' : 'companies-list-block'">
+    <!-- <section class="companies-list" *ngIf="(dataCompanies || []).length > 0"> -->
+    <div class="mb-3 row">
+      <label for="idCountry" class="col-sm-1 col-form-label">Id País: </label>
+      <div class="col-sm-5">
+        <!-- <select class="form-control form-select" name="idCountry">
+          <option value="" disabled selected>Seleccionar</option>
+          <option *ngFor="let item of countriesOptions; let i = index" [id]="i" [value]="item">
+            {{ item }}
+          </option>
+        </select> -->
+        <input type="text" placeholder="Selecciona id país" class="form-control" [matAutocomplete]="auto"
+          (keyup)="_filter($event)" (change)="changeFilter($event, '')">
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let idCountry of countriesOptions" [value]="idCountry" (click)="changeFilter($event, idCountry)">
+            {{idCountry}}
+          </mat-option>
+        </mat-autocomplete>
+      </div>
+    </div>
     <table mat-table [dataSource]="dataCompanies" matSort (matSortChange)="announceSortChange($event)"
       class="mat-elevation-z8">
 
@@ -18,7 +37,7 @@
         <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by id">
           Id empresa
         </th>
-        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+        <td mat-cell *matCellDef="let element"> <a href="javascript:void(0)" (click)="editCompany(element)">{{element.id}}</a> </td>
       </ng-container>
 
       <!-- Descripción Column -->
@@ -45,7 +64,7 @@
         <td mat-cell *matCellDef="let element"> {{element.param}} </td>
       </ng-container>
 
-      <ng-container matColumnDef="actions">
+      <!-- <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef>
           Actions
         </th>
@@ -57,7 +76,7 @@
             <mat-icon>delete</mat-icon>
           </button>
         </td>
-      </ng-container>
+      </ng-container> -->
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>

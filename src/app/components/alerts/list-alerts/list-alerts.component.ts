@@ -15,7 +15,8 @@ import { FormAlertComponent } from '../form-alert/form-alert.component';
   styleUrls: ['./list-alerts.component.scss']
 })
 export class ListAlertsComponent implements OnInit, AfterViewInit {
-  displayedColumns: string[] = ['backend', 'operation', 'numberRequests', 'timestamp', 'actions'];
+  // displayedColumns: string[] = ['backend', 'operation', 'numberRequests', 'timestamp', 'actions'];
+  displayedColumns: string[] = ['backend', 'operation', 'numberRequests', 'timestamp'];
   alerts: Alert[] | [] = [];
   dataAlerts: any;
   loading = true;

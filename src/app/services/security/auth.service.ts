@@ -3,7 +3,6 @@ import configData from '../../../../config.json';
 
 import { UserManager, UserManagerSettings, User } from 'oidc-client';
 import { Observable, from, Subject } from 'rxjs';
-import { mergeMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +15,7 @@ export class AuthService {
   constructor() {
     this.manager.getUser().then(user => {
       this.user = user;
-      debugger;
+      // debugger;
       this.isLoggedInSubject().next(this.isLoggedIn());
     });
   }
@@ -26,7 +25,7 @@ export class AuthService {
   }
 
   isLoggedIn(): boolean {
-    debugger;
+    // debugger;
     return this.user != null && !this.user.expired;
   }
 

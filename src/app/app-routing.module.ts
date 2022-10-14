@@ -5,6 +5,7 @@ import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { AuthGuardService } from './guards/auth-guard.service';
 import { ListAlertsComponent } from './components/alerts/list-alerts/list-alerts.component';
+import { CognitoComponent } from './components/cognito/cognito/cognito.component';
 
 const routes: Routes = [
   {
@@ -24,6 +25,11 @@ const routes: Routes = [
   {
     path: 'alerts',
     component: ListAlertsComponent,
+    canActivate: [AuthGuardService]
+  },
+  {
+    path: 'cognito',
+    component: CognitoComponent,
     canActivate: [AuthGuardService]
   },
   {
