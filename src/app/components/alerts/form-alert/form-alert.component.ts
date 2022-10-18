@@ -113,9 +113,11 @@ export class FormAlertComponent implements OnInit {
   getValueOperationAlert(operation: string) {
     let operationAlert = "";
     switch (operation) {
-      case "WE":
       case "WC":
-        operationAlert = "warning";
+        operationAlert = "warningcutoff";
+        break;
+      case "WE":
+        operationAlert = "warningerror";
         break;
       case "C":
         operationAlert = "cutoff";
